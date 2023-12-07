@@ -1,18 +1,19 @@
 from flask import Flask, jsonify, request, Response
 from flask_mongoengine import MongoEngine
 
+
 from db.dbinit import db
 from db.dbinit import initdb
 from db.Models import User
 from dotenv import load_dotenv, find_dotenv
 from api.UserApi.routes import init_routes
-from flask_restful import Api
+
 import os
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(BASEDIR, '.env'))
 app = Flask(__name__)
-api = Api(app)
+
 print("Mongo uri is ",os.getenv("MONGODB_URI") )
 app.config['MONGODB_SETTINGS']={
     'host':os.getenv('MONGODB_URI'),
@@ -37,7 +38,7 @@ finally:
 # else:
 #     print("Failed to connect to MongoDB. Please check your configuration.")
 
-init_routes(api)
+
 
 @app.route('/')
 def index():
