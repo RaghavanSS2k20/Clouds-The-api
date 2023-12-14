@@ -4,9 +4,11 @@ from flask_mongoengine import MongoEngine
 
 from db.dbinit import db
 from db.dbinit import initdb
-from db.Models import User
+from db.Models.Cloud import Cloud
+from db.Models.User import User
 from dotenv import load_dotenv, find_dotenv
-from api.UserApi.routes import init_routes
+from api.cloudApi import cloudBp
+# from api.UserApi.routes import init_routes
 
 import os
 
@@ -46,7 +48,7 @@ def index():
 
 @app.route("/add-user", methods = ['POST'])
 def addTestUser():
-    user = User.User(email="alittlefightinyou@darkknight.com")
+    user = User(email="alittlefightiny@testing.com")
    
     user.displayName = "A Dark Knight"
 
@@ -55,7 +57,8 @@ def addTestUser():
  
 @app.route('/users', methods=['GET'])
 def getUsers():
-    users = User.User.objects().to_json()
+    users = User.objects().to_json()
     return Response(users,  mimetype="application/json", status=200)
+
 
 app.run()

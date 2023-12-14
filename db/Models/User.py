@@ -1,6 +1,7 @@
 from ..dbinit import db
-from .Cloud import Cloud
+# from lazy
 from .Day import Day
+from .Cloud import Cloud
 
 class User(db.Document):
     email = db.StringField( unique=True )

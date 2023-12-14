@@ -1,12 +1,21 @@
+from __future__ import annotations
 from ..dbinit import db
 from .Cloud import Cloud
-from User import User
+from datetime import datetime
+
 from .Cloud import EmotionalResult
 
 class Day(db.Document):
-    user = db.ReferenceField(User)
+    
     clouds = db.ListField(db.ReferenceField(Cloud))
-    displayCloud = db.ReferenceField(db.ReferenceField(Cloud))
+    displayCloud = db.ReferenceField(Cloud)
     mostNoticedEmotion = db.DictField()
+    date = db.DateTimeField(default=datetime.utcnow, unique=True)
+
+    def __init__(self):
+        from .User import User
+        self.user = db.ReferenceField(User)
+
+
 
     
