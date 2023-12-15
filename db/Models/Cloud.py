@@ -28,7 +28,7 @@ class EmotionalResult():
 class Cloud(db.Document):
 
     cloud = db.StringField(required = True)
-    cloudTime = db.DateTimeField(default=datetime.utcnow)
+    cloudTime = db.DateTimeField(default=datetime.utcnow())
     intent = db.EnumField(IntentValue, default=IntentValue.DRAFTS)
     emotions = db.ListField(db.DictField())
 

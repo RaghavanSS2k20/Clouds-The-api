@@ -8,6 +8,7 @@ from db.Models.Cloud import Cloud
 from db.Models.User import User
 from dotenv import load_dotenv, find_dotenv
 from api.cloudApi import cloudBp
+from api.dayApi import dayBp
 # from api.UserApi.routes import init_routes
 
 import os
@@ -61,4 +62,5 @@ def getUsers():
     return Response(users,  mimetype="application/json", status=200)
 
 app.register_blueprint(cloudBp, url_prefix='/api/cloud')
+app.register_blueprint(dayBp, url_prefix='/api/day')
 app.run()

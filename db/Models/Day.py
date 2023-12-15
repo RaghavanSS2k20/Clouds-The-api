@@ -10,7 +10,7 @@ class Day(db.Document):
     clouds = db.ListField(db.ReferenceField(Cloud))
     displayCloud = db.ReferenceField(Cloud)
     mostNoticedEmotion = db.DictField()
-    date = db.DateTimeField(default=datetime.utcnow, unique=True)
+    date = db.DateField(default=datetime.utcnow().date, unique=True)
 
     def __init__(self, *args, **kwargs):
         super(Day, self).__init__(*args, **kwargs)

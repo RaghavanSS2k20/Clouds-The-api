@@ -14,12 +14,15 @@ def TestcreateCloud():
         )
         cloud.save()
         current_date = datetime.utcnow().date()
+       # current_date =  datetime(current_date.year, current_date.month, current_date.day)
+        print(current_date)
         day = Day.objects(date=current_date).first()
 
         if day:
             day.clouds.append(cloud)
         else:
             day = Day(clouds=[cloud])
+        day.save()
         return jsonify({"cloud":cloud}), 200
     except Exception as e:
         print("Error while creating cloud , ", str(e))
