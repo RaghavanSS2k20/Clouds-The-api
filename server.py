@@ -48,7 +48,7 @@ def index():
 
 @app.route("/add-user", methods = ['POST'])
 def addTestUser():
-    user = User(email="alittlefightiny@testing.com")
+    user = User(email="alittlefightiny@testing.com", phoneNumber="1234567890", passWord="11")
    
     user.displayName = "A Dark Knight"
 
@@ -60,5 +60,5 @@ def getUsers():
     users = User.objects().to_json()
     return Response(users,  mimetype="application/json", status=200)
 
-
+app.register_blueprint(cloudBp, url_prefix='/api/cloud')
 app.run()

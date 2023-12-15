@@ -12,7 +12,8 @@ class Day(db.Document):
     mostNoticedEmotion = db.DictField()
     date = db.DateTimeField(default=datetime.utcnow, unique=True)
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super(Day, self).__init__(*args, **kwargs)
         from .User import User
         self.user = db.ReferenceField(User)
 

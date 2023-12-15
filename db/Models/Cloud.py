@@ -32,7 +32,8 @@ class Cloud(db.Document):
     intent = db.EnumField(IntentValue, default=IntentValue.DRAFTS)
     emotions = db.ListField(db.DictField())
 
-    def __init__(self):
+    def __init__(self,*args, **kwargs):
+        super(Cloud, self).__init__(*args, **kwargs)
         from .User import User
         self.user = db.ReferenceField(User)
     def update_emotions_intent(self):
