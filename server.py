@@ -10,13 +10,13 @@ from dotenv import load_dotenv, find_dotenv
 from api.cloudApi import cloudBp
 from api.dayApi import dayBp
 # from api.UserApi.routes import init_routes
-
+from flask_bcrypt import Bcrypt
 import os
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(BASEDIR, '.env'))
 app = Flask(__name__)
-
+bcrypt = Bcrypt(app)
 print("Mongo uri is ",os.getenv("MONGODB_URI") )
 app.config['MONGODB_SETTINGS']={
     'host':os.getenv('MONGODB_URI'),

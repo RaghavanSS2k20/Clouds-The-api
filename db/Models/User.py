@@ -2,6 +2,7 @@ from ..dbinit import db
 # from lazy
 from .Day import Day
 from .Cloud import Cloud
+from flask_bcrypt import generate_password_hash, check_password_hash
 
 class User(db.Document):
     email = db.StringField( unique=True )
@@ -14,3 +15,8 @@ class User(db.Document):
     @property
     def totalClouds(self):
         return len(self.clouds)
+
+    def hash_password(self):
+        self.passWord = generate_password_hash(self.passWord).decode('utf8')
+    def check_password(self, password):
+        return check_password_hash(self.passWord, password)

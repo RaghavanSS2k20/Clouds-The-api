@@ -40,3 +40,29 @@ def getAllClouds():
         return Response(all_clouds, mimetype="application/json", status=200 )
     except Exception as e:
         return Response(str(e), status=500, mimetype="application/json")
+
+def getById(id):
+    try:
+        cloud = Cloud.objects.get(id=id)
+        data  ={
+            "cloud":cloud
+        }
+        return jsonify(data), 200
+        if not cloud:
+            return jsonify({'error':'cloud not found'}), 404
+    except Exception as e:
+        return jsonify({"message":"Error while", 'error':str(e)}), 500
+
+
+
+#DELETE
+def deleteById(id):
+    try:
+        cloud = Cloud.objects.get(id=id)
+        cloud.delete()
+        return jsonify({"message":"deleted successfully"}),200
+    except Cloud.DoesNotExist:
+        return jsonify({'error': 'Cloud not found'}), 404
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
