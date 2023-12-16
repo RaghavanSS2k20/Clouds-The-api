@@ -9,20 +9,24 @@ from db.Models.User import User
 from dotenv import load_dotenv, find_dotenv
 from api.cloudApi import cloudBp
 from api.dayApi import dayBp
+from api.AuthApi import auth
 # from api.UserApi.routes import init_routes
 from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager
 import os
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(BASEDIR, '.env'))
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
+jwt = JWTManager(app)
 print("Mongo uri is ",os.getenv("MONGODB_URI") )
 app.config['MONGODB_SETTINGS']={
     'host':os.getenv('MONGODB_URI'),
     'db':'clouds',
     'connect':False
 }
+app.config['JWT_SECRET_KEY']=os.getenv("JWT_SECRET_KEY")
 try:
     initdb(app)
 except Exception as e:
@@ -63,4 +67,5 @@ def getUsers():
 
 app.register_blueprint(cloudBp, url_prefix='/api/cloud')
 app.register_blueprint(dayBp, url_prefix='/api/day')
+app.register_blueprint(auth,url_prefix="/auth")
 app.run()
